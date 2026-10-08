@@ -95,16 +95,15 @@ header {
   gap: 1.2rem;
 }
 
-.mk {
-  width: 36px; height: 36px; border-radius: 50%;
-  display: grid; place-items: center;
-  font: 700 .9rem var(--font-geist);
-  background: var(--bg);
-  color: var(--fg);
-  border: 1px solid var(--ln);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: background 0.3s, border 0.3s, color 0.3s;
+.logo-container {
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
 }
+.logo-dark, .logo-light {
+  transition: opacity 0.3s ease;
+}
+:root[data-theme="dark"] .logo-light { display: none; }
+:root:not([data-theme="dark"]) .logo-dark { display: none; }
 
 .pill { position: relative; overflow: hidden; padding: 1px; border-radius: 99px; background: var(--pill-border); transition: background 0.3s;}
 .pill span {
