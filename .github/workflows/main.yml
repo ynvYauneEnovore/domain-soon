@@ -29,12 +29,12 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/viscarra-core/viscarra-website:latest
-            ghcr.io/viscarra-core/viscarra-website:${{ github.sha }}
+            ghcr.io/ynvyauneenovore/domain-soon:latest
+            ghcr.io/ynvyauneenovore/domain-soon:${{ github.sha }}
 
       - name: Actualizar archivo de Kubernetes YAML
         run: |
-          sed -i "s|image: ghcr.io/viscarra-core/viscarra-website:.*|image: ghcr.io/viscarra-core/viscarra-website:${{ github.sha }}|g" k8s/despliegue.yaml
+          sed -i "s|image: ghcr.io/ynvyauneenovore/domain-soon:.*|image: ghcr.io/ynvyauneenovore/domain-soon:${{ github.sha }}|g" k8s/despliegue.yaml
           
       - name: Subir cambios de Kubernetes al repositorio
         run: |
