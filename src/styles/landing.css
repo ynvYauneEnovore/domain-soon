@@ -1,7 +1,7 @@
 :root {
-  --a: #10b981; /* Hacker Green main */
-  --b: #34d399; /* Hacker Green light */
-  --c: #059669; /* Hacker Green dark */
+  --a: #10b981;
+  --b: #34d399;
+  --c: #059669;
   --mut: #666666;
   --ln: rgba(0,0,0,.1);
   --bg: #ffffff;
@@ -68,7 +68,6 @@ body { position: fixed; inset: 0; }
 }
 @keyframes gr { 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); } 60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); } }
 
-/* Vercel style cursor */
 .cur {
   left: 0; top: 0; width: 400px; height: 400px; margin: -200px 0 0 -200px;
   border-radius: 50%;
@@ -96,7 +95,6 @@ header {
   gap: 1.2rem;
 }
 
-/* Vercel sleek logo */
 .mk {
   width: 36px; height: 36px; border-radius: 50%;
   display: grid; place-items: center;
@@ -108,7 +106,6 @@ header {
   transition: background 0.3s, border 0.3s, color 0.3s;
 }
 
-/* Vercel pill */
 .pill { position: relative; overflow: hidden; padding: 1px; border-radius: 99px; background: var(--pill-border); transition: background 0.3s;}
 .pill span {
   position: relative; display: flex; align-items: center; gap: .6rem;
@@ -118,7 +115,6 @@ header {
 }
 .pill s { width: 6px; height: 6px; border-radius: 50%; background: var(--b); box-shadow: 0 0 8px var(--b); }
 
-/* Vercel Theme toggle */
 .theme-btn {
   background: none; border: none; cursor: pointer;
   color: var(--mut);
@@ -156,7 +152,6 @@ h1 {
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; animation: up 1s 1.2s cubic-bezier(.2, .8, .2, 1) both; margin-top: 1rem; }
 @keyframes up { from { opacity: 0; transform: translateY(16px); filter: blur(6px); } }
 
-/* Vercel style buttons */
 .btn {
   position: relative; padding: .8rem 1.6rem; border-radius: 6px;
   font-size: .9rem; font-weight: 500; text-decoration: none;

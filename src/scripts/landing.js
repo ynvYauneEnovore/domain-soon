@@ -1,17 +1,15 @@
-/* ===== CONFIGURACIÓN: cambia solo esto para cada dominio ===== */
 const C = {
-  name: "OpenRed Bolivia", 
-  initials: "OR", 
+  name: "OpenRed Bolivia",
+  initials: "OR",
   status: "Sitio en desarrollo",
   sub: "Nuestro nuevo sitio web está en camino.",
-  whatsapp: "59176115022", 
-  email: "", 
-  access: { label: "Acceder al sistema", url: "" }, 
+  whatsapp: "59176115022",
+  email: "",
+  access: { label: "Acceder al sistema", url: "" },
   address: "Santa Cruz, Bolivia",
   marquee: "Próximamente",
-  colors: ["#10b981", "#34d399", "#059669"] // Hacker Green colors
+  colors: ["#10b981", "#34d399", "#059669"]
 };
-/* ============================================================ */
 
 const $ = id => document.getElementById(id);
 const R = document.documentElement.style;
@@ -51,7 +49,6 @@ if(acEl) {
 const mqEl = $("mq");
 if(mqEl) mqEl.innerHTML = Array(8).fill("<span>" + C.marquee + "</span>").join("");
 
-/* título letra por letra */
 const h = $("ttl");
 let Ls = [];
 let rc = [];
@@ -96,14 +93,12 @@ if(Ls.length) {
   setTimeout(() => { wave(); setInterval(wave, 7000) }, 2300);
 }
 
-/* campo de flujo: Matrix Hacker Rain */
 const cv = $("fx");
 const cu = $("cur");
 let m = { x: -999, y: -999, cx: -999, cy: -999 };
 let W, H;
 let x = null;
 
-// Matrix settings
 let fontSize = 16;
 let columns = [];
 let charStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
@@ -141,7 +136,6 @@ if(cv) {
   function drawMatrix() {
     const alphaVal = getComputedStyle(document.documentElement).getPropertyValue('--canvas-alpha').trim() || '0.15';
     
-    // Trail effect
     x.fillStyle = `rgba(0,0,0,${alphaVal})`;
     x.globalCompositeOperation = "source-over";
     x.fillRect(0, 0, W, H);
@@ -160,11 +154,11 @@ if(cv) {
       let opacity = 0.3;
       if (dist < 150) {
         opacity = 1 - (dist / 150);
-        x.fillStyle = `rgba(52, 211, 153, ${opacity + 0.2})`; // bright green near cursor
+        x.fillStyle = `rgba(52, 211, 153, ${opacity + 0.2})`;
         x.shadowBlur = 8;
         x.shadowColor = "#34d399";
       } else {
-        x.fillStyle = `rgba(5, 150, 105, 0.4)`; // subtle green normal
+        x.fillStyle = `rgba(5, 150, 105, 0.4)`;
         x.shadowBlur = 0;
       }
       
@@ -173,10 +167,9 @@ if(cv) {
       if (charY > H && Math.random() > 0.98) {
         columns[i] = 0;
       }
-      columns[i] += 0.8; // fall speed
+      columns[i] += 0.8;
     }
     
-    // Cursor glow follow
     m.cx += (m.x - m.cx) * .12;
     m.cy += (m.y - m.cy) * .12;
     if(cu) cu.style.transform = "translate(" + m.cx + "px," + m.cy + "px)";
@@ -189,7 +182,6 @@ if(cv) {
   }
 }
 
-/* Tema Toggle (Dark / Light) */
 const themeBtn = $('theme-btn');
 const themeIcon = $('theme-icon');
 const htmlEl = document.documentElement;
