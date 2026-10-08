@@ -1,36 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: viscarra-website-deployment
-  namespace: viscarra
+  name: domain-soon-deployment
+  namespace: openred
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: viscarra-website
+      app: domain-soon
   template:
     metadata:
       labels:
-        app: viscarra-website
+        app: domain-soon
     spec:
       imagePullSecrets:
       - name: github-registry-secret
       containers:
-      - name: viscarra-website
-        image: ghcr.io/viscarra-core/viscarra-website:8a20e1dd66e31e12c0bc222de4de16a46b0412bc
+      - name: domain-soon
+        image: ghcr.io/ynvyauneenovore/domain-soon:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: viscarra-website-service
-  namespace: viscarra
+  name: domain-soon-service
+  namespace: openred
 spec:
   selector:
-    app: viscarra-website
+    app: domain-soon
   ports:
     - name: http
       protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 80
+      targetPort: 80
