@@ -1,15 +1,15 @@
 /* ===== CONFIGURACIÓN: cambia solo esto para cada dominio ===== */
 const C = {
-  name: "OpenRed Bolivia", // vacío ("") = usa el nombre del dominio automáticamente
-  initials: "OR", // vacío = se generan solas
+  name: "OpenRed Bolivia", 
+  initials: "OR", 
   status: "Sitio en desarrollo",
   sub: "Nuestro nuevo sitio web está en camino.",
-  whatsapp: "59176115022", // vacío = oculta el botón
-  email: "", // vacío = oculta el botón
-  access: { label: "Acceder al sistema", url: "" }, // url vacía = oculta el botón (ej. "https://app.midominio.com")
+  whatsapp: "59176115022", 
+  email: "", 
+  access: { label: "Acceder al sistema", url: "" }, 
   address: "Santa Cruz, Bolivia",
   marquee: "Próximamente",
-  colors: ["#2f6bff", "#22d3ee", "#8b5cf6"]
+  colors: ["#10b981", "#34d399", "#059669"] // Hacker Green colors
 };
 /* ============================================================ */
 
@@ -96,25 +96,19 @@ if(Ls.length) {
   setTimeout(() => { wave(); setInterval(wave, 7000) }, 2300);
 }
 
-/* botones magnéticos */
-document.querySelectorAll(".btn").forEach(b => {
-  b.addEventListener("pointermove", e => {
-    const r = b.getBoundingClientRect();
-    b.style.translate = ((e.clientX - r.left - r.width / 2) * .22) + "px " + ((e.clientY - r.top - r.height / 2) * .35) + "px";
-  });
-  b.addEventListener("pointerleave", () => b.style.translate = "");
-});
-
-/* campo de flujo: hilos de luz que giran alrededor del cursor */
+/* campo de flujo: Matrix Hacker Rain */
 const cv = $("fx");
 const cu = $("cur");
 let m = { x: -999, y: -999, cx: -999, cy: -999 };
-let W, H, P = [], t = 0;
+let W, H;
 let x = null;
 
-if(cv) x = cv.getContext("2d");
+// Matrix settings
+let fontSize = 16;
+let columns = [];
+let charStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
 
-const sp = () => ({ x: Math.random() * W, y: Math.random() * H, c: C.colors[Math.random() * 3 | 0], l: Math.random() * 220 + 80 });
+if(cv) x = cv.getContext("2d");
 
 function rs() {
   if(!cv) return;
@@ -124,7 +118,9 @@ function rs() {
   cv.width = W * D;
   cv.height = H * D;
   x.setTransform(D, 0, 0, D, 0, 0);
-  P = Array.from({ length: Math.min(300, W * H / 5500 | 0) }, sp);
+  
+  const cols = Math.floor(W / fontSize) + 1;
+  columns = Array(cols).fill(0).map(() => Math.random() * -100);
   setTimeout(meas, 300);
 }
 
@@ -142,54 +138,54 @@ if(cv) {
 
   addEventListener("pointerleave", () => { m.x = m.y = -999; });
 
-  function draw() {
-    t += .004;
+  function drawMatrix() {
+    const alphaVal = getComputedStyle(document.documentElement).getPropertyValue('--canvas-alpha').trim() || '0.15';
     
-    // Clear canvas
-    x.globalCompositeOperation = "destination-out";
-    
-    // Use the CSS variable alpha
-    const alphaVal = getComputedStyle(document.documentElement).getPropertyValue('--canvas-alpha').trim() || '0.08';
-    x.fillStyle = `rgba(0,0,0,${alphaVal})`; 
+    // Trail effect
+    x.fillStyle = `rgba(0,0,0,${alphaVal})`;
+    x.globalCompositeOperation = "source-over";
     x.fillRect(0, 0, W, H);
     
-    x.globalCompositeOperation = "source-over";
-    x.lineWidth = 1.2;
-    x.globalAlpha = 0.65;
+    x.font = `600 ${fontSize}px var(--font-geist, monospace)`;
     
-    for (const p of P) {
-      const s = .0016;
-      const a = (Math.sin(p.x * s * 2 + t * 3) + Math.cos(p.y * s * 2.6 - t * 2) + Math.sin((p.x + p.y) * s)) * Math.PI * .9;
-      let vx = Math.cos(a), vy = Math.sin(a);
-      const dx = m.x - p.x, dy = m.y - p.y, d = Math.hypot(dx, dy) || 1;
+    for (let i = 0; i < columns.length; i++) {
+      const text = charStr.charAt(Math.floor(Math.random() * charStr.length));
+      const charX = i * fontSize;
+      const charY = columns[i] * fontSize;
       
-      if (d < 240) {
-        const f = (1 - d / 240) * 2.6;
-        vx += -dy / d * f;
-        vy += dx / d * f;
+      const dx = m.x - charX;
+      const dy = m.y - charY;
+      const dist = Math.hypot(dx, dy);
+      
+      let opacity = 0.3;
+      if (dist < 150) {
+        opacity = 1 - (dist / 150);
+        x.fillStyle = `rgba(52, 211, 153, ${opacity + 0.2})`; // bright green near cursor
+        x.shadowBlur = 8;
+        x.shadowColor = "#34d399";
+      } else {
+        x.fillStyle = `rgba(5, 150, 105, 0.4)`; // subtle green normal
+        x.shadowBlur = 0;
       }
       
-      const nx = p.x + vx * 1.4, ny = p.y + vy * 1.4;
-      x.strokeStyle = p.c;
-      x.beginPath();
-      x.moveTo(p.x, p.y);
-      x.lineTo(nx, ny);
-      x.stroke();
+      x.fillText(text, charX, charY);
       
-      p.x = nx;
-      p.y = ny;
-      if (--p.l < 0 || nx < 0 || nx > W || ny < 0 || ny > H) Object.assign(p, sp());
+      if (charY > H && Math.random() > 0.98) {
+        columns[i] = 0;
+      }
+      columns[i] += 0.8; // fall speed
     }
     
+    // Cursor glow follow
     m.cx += (m.x - m.cx) * .12;
     m.cy += (m.y - m.cy) * .12;
     if(cu) cu.style.transform = "translate(" + m.cx + "px," + m.cy + "px)";
     
-    requestAnimationFrame(draw);
+    requestAnimationFrame(drawMatrix);
   }
 
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    draw();
+    drawMatrix();
   }
 }
 
