@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domain-soon
+  labels:
+    app: domain-soon
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: domain-soon
+  template:
+    metadata:
+      labels:
+        app: domain-soon
+    spec:
+      containers:
+      - name: domain-soon
+        # The tag :latest will be automatically substituted by the GitHub Action
+        image: ghcr.io/ynvyauneenovore/domain-soon:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "32Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 2
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10

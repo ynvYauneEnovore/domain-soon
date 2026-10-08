@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: domain-soon-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  rules:
+  - host: openred.bo # Adjust this to your exact domain if different
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: domain-soon
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - openred.bo
+    secretName: openred-tls

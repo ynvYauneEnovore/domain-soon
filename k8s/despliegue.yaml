@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: viscarra-website-deployment
+  namespace: viscarra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: viscarra-website
+  template:
+    metadata:
+      labels:
+        app: viscarra-website
+    spec:
+      imagePullSecrets:
+      - name: github-registry-secret
+      containers:
+      - name: viscarra-website
+        image: ghcr.io/viscarra-core/viscarra-website:8a20e1dd66e31e12c0bc222de4de16a46b0412bc
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: viscarra-website-service
+  namespace: viscarra
+spec:
+  selector:
+    app: viscarra-website
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
