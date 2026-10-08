@@ -8,7 +8,7 @@ const C = {
   access: { label: "Acceder al sistema", url: "" },
   address: "Santa Cruz, Bolivia",
   marquee: "Próximamente",
-  colors: ["#10b981", "#34d399", "#059669"]
+  colors: ["#2f6bff", "#22d3ee", "#8b5cf6"]
 };
 
 const $ = id => document.getElementById(id);
@@ -154,11 +154,11 @@ if(cv) {
       let opacity = 0.3;
       if (dist < 150) {
         opacity = 1 - (dist / 150);
-        x.fillStyle = `rgba(52, 211, 153, ${opacity + 0.2})`;
+        x.fillStyle = `rgba(34, 211, 238, ${opacity + 0.2})`;
         x.shadowBlur = 8;
-        x.shadowColor = "#34d399";
+        x.shadowColor = "#22d3ee";
       } else {
-        x.fillStyle = `rgba(5, 150, 105, 0.4)`;
+        x.fillStyle = `rgba(47, 107, 255, 0.4)`;
         x.shadowBlur = 0;
       }
       
