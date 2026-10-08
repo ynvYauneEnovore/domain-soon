@@ -17,7 +17,7 @@ spec:
       - name: github-registry-secret
       containers:
       - name: domain-soon
-        image: ghcr.io/ynvyauneenovore/domain-soon:latest
+        image: ghcr.io/ynvyauneenovore/domain-soon:71ca8f1b296fa06f8bcd06389184ce3db561757f
         ports:
         - containerPort: 80
 ---
